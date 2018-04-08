@@ -1,0 +1,54 @@
+<project name="TP1-base" default="dist" basedir=".">
+  
+  <description>
+    Archivo de base para la compilación del código correspondiente al TP1
+  </description>
+  
+  <!-- Setea la propiedades globales para esta compilación -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+
+  <property name="main" value="Main"/>
+
+
+
+  <target name="init">
+    <!-- Crea la estructura de directorios utilizada para compilar -->
+    <mkdir dir="${build}"/>
+  </target>
+
+
+
+  <target name="compile" depends="init"
+        description="compile the source">
+    <!-- Compila el codigo java desde ${src} hasta ${build} -->
+    <javac srcdir="${src}" destdir="${build}"/>
+  </target>
+
+
+
+  <target name="dist" depends="compile"
+        description="Genera el archivo de distribución">
+    <!-- Crea el directorio de distribución -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Pone todo en ${build} dentro del archivo TP1-base.jar -->
+    <jar jarfile="${dist}/main.jar" basedir="${build}">
+        <manifest>
+            <attribute name="Main-Class" value="${main}"/>    
+        </manifest>
+    </jar>
+  </target>
+
+
+
+  <target name="clean"
+        description="Limpieza">
+    <!-- Elimina los arboles de directorio ${build} y ${dist} -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+
+
+</project>
